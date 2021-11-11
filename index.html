@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en"
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" context="width=device-width, initial-scale=1.0">
+    <title>Leaflet</title>
+
+<!-- leaflet css-->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+    
+    <style>
+        body{
+            margin: 25px;
+            padding: 100px;
+
+        }
+        #map{
+           width: 100%;
+           height: 70vh;
+
+        }
+    </style>
+</head>
+
+<body>
+    <div id="map"></div>
+    <div class="coordinate"></div>
+
+</body>
+</html>
+<!-- leaflet js-->
+<script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2139480431831873"
+     crossorigin="anonymous"></script>
+<script>
+// Initialize the map
+var map = L.map('map').setView([39.1478849, -99.5031593], 5);
+
+//osm layer
+var osm = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+});
+osm.addTo(map);
+
+ //Google Hybrid
+ var googleHybrid = L.tileLayer('http://{s}.google.com/vt/lyrs=s,h&x={x}&y={y}&z={z}', {
+    maxZoom: 20,
+    subdomains:['mt0','mt1','mt2','mt3']
+});
+//googleHybrid.addTo(map);
+
+//Terrain
+var googleTerrain = L.tileLayer('http://{s}.google.com/vt/lyrs=p&x={x}&y={y}&z={z}',{
+    maxZoom: 20,
+    subdomains:['mt0','mt1','mt2','mt3']
+});
+//googleTerrain.addTo(map);
+
+//layer controller
+  var baseMaps = {
+    "OSM": osm,
+    "Hybrid": googleHybrid,
+    "Terrain": googleTerrain
+ };
+
+L.control.layers(baseMaps).addTo(map);
+
+
+
+
+
+/*========================================
+        Leaflet EVENTS
+ =========================================*/
+map.on('mouseover', function() {
+    console.log('your mouse is over the map')
+})
+
+map.on('mousemove', function (e) {
+    document.getElementsByClassName('coordinate')[0].innerHTML ='Lat: '+ e.latlng.lat + 'Long: ' +e.latlng.lng ;
+    console.log('Lat: '+ e.latlng.lat, 'Long: ' +e.latlng.lng)
+})
+  
+map.on('click', function(e) {
+    alert(e.latlng);
+} );
+
+</script>
+
