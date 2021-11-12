@@ -13,6 +13,9 @@
             margin: 0px;
             padding: 10px;
             font-family: sans-serif;
+            background: black;
+            color: white;
+            
 
         }
 
@@ -42,6 +45,16 @@
         }        
         .content {padding:20px;}
 
+        .legend {
+            line-height: 18px;
+            color: #555;
+        }
+
+     
+         h1 {
+            color: white
+        }
+        
        
     </style>
 </head>
@@ -64,6 +77,8 @@
 <script>
 // Initialize the map
 var map = L.map('map').setView([39.1478849, -99.5031593], 5);
+
+
 
 //osm layer
 var osm = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
