@@ -5,22 +5,8 @@
     <meta name="viewport" context="width=device-width, initial-scale=1.0">
     <title>Leaflet</title>
 
-
-<!-- Global site tag (gtag.js) - Google Analytics -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-HR4WN5R8KN"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'G-HR4WN5R8KN');
-</script>
 <!-- leaflet css-->
-
-
-
-
-<link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
     
     <style>
         body{
@@ -41,18 +27,22 @@
 
     
         #map{
-           width: 95%;
-           height: 70vh;
-           padding: 25px;
-
+           width: 65%;
+           height: 30vh;
+           padding: 170px;
+           margin: 120px;
+           bottom: 0;
+           top: 0;
+           position: absolute;
+                   
         }
         
-}
         #content{
             margin-top: 100px;
         }        
         .content {padding:20px;}
 
+       
     </style>
 </head>
 
@@ -79,7 +69,7 @@ var map = L.map('map').setView([39.1478849, -99.5031593], 5);
 var osm = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
     attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
 });
-osm.addTo(map);
+//osm.addTo(map);
 
  //Google Hybrid
  var googleHybrid = L.tileLayer('http://{s}.google.com/vt/lyrs=s,h&x={x}&y={y}&z={z}', {
@@ -93,7 +83,7 @@ var googleTerrain = L.tileLayer('http://{s}.google.com/vt/lyrs=p&x={x}&y={y}&z={
     maxZoom: 20,
     subdomains:['mt0','mt1','mt2','mt3']
 });
-//googleTerrain.addTo(map);
+googleTerrain.addTo(map);
 
 //layer controller
   var baseMaps = {
@@ -103,8 +93,6 @@ var googleTerrain = L.tileLayer('http://{s}.google.com/vt/lyrs=p&x={x}&y={y}&z={
  };
 
 L.control.layers(baseMaps).addTo(map);
-
-
 
 
 
