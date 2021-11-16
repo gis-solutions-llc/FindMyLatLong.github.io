@@ -13,64 +13,60 @@
     <style>
         body{
             margin: 0px;
-            padding: 10px;
+            height: 100%;
             font-family: sans-serif;
-            background: black;
-            color: white;
+            font-size: 20px;
+            
             
 
         }
+        .coordinate {
+        text-align:center;
+        position: absolute;
+        left: 100px;
+        padding: 10px;
+        margin: 500px;
+        height: 40px;
+        width: 400px;
+        bottom: -475px;
+        background-color: rgb(226, 221, 221); 
+        outline-color: rgb(168, 158, 158);
+        outline-width: 2px;
+        outline-style: solid;
+        z-index: 1;
         
-        .header{
-            width: 100%;
-            position: fixed;
-            background: gray;
-            padding: 10px 0;
-            color: #fff;
-            top: 0;
         }
-
-    
+          
         #map{
-           width: 65%;
-           height: 30vh;
-           padding: 170px;
-           margin: 120px;
+           width: 100%;
+           height: 100%;
            bottom: 0;
            top: 0;
            position: absolute;
+           z-index: -1;
+           background-position: center;
+           background-repeat: no-repeat;
+           background-size: cover;
+
                    
         }
         
-        #content{
-            margin-top: 100px;
-        }        
-        .content {padding:20px;}
-
-        .legend {
-            line-height: 18px;
-            color: #555;
         }
-
-     
-         h1 {
-            color: white
-        }
-        
-       
+        #selection {
+        color: black;
+        width: 600%;
+        height: 400px;       
+   }
+   
+      
     </style>
 </head>
 
 <body>
     <div id="map"></div>
-    <div class="coordinate"></div>
-
-    <div id="header">
-        <h1>Find My Lat Long</h1>
-        </div>
-      <div class="content">
+    <div id="selection"></div>
+    <div class="coordinate"></div>      
         
-</div>
 </body>
 </html>
 <!-- leaflet js-->
@@ -81,19 +77,19 @@
 var map = L.map('map').setView([39.1478849, -99.5031593], 5);
 
 //Auto locate once map is initialized
-map.locate({setView: true, maxZoom: 16});
-function onLocationFound(e) {
-    L.marker(e.latlng).addTo(map)
-        .bindPopup('Lat: '+ e.latlng.lat, 'Long: ' +e.latlng.lng).openPopup();
+// map.locate({setView: true, maxZoom: 16});
+// function onLocationFound(e) {
+//     L.marker(e.latlng).addTo(map)
+//         .bindPopup('Lat: '+ e.latlng.lat, 'Long: ' +e.latlng.lng).openPopup();
 
-    L.circle(e.latlng).addTo(map);
-}
+//     L.circle(e.latlng).addTo(map);
+// }
 
-function onLocationError(e) {
-    alert(e.message);
-}
+// function onLocationError(e) {
+//     alert(e.message);
+// }
 
-map.on('locationfound', onLocationFound);
+// map.on('locationfound', onLocationFound);
 
 //osm layer
 var osm = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -137,6 +133,8 @@ googleTerrain.addTo(map);
     map.fitBounds(poly.getBounds());
   })
   
+  
+
 
 L.control.layers(baseMaps).addTo(map);
 L.Control.geocoder().addTo(map);
@@ -148,18 +146,18 @@ L.Control.geocoder().addTo(map);
 map.on('mouseover', function() {
     console.log('your mouse is over the map')
 })
-
+ //This is the lat/long in display box at the bottom of page
 map.on('mousemove', function (e) {
-    document.getElementsByClassName('coordinate')[0].innerHTML ='Lat: '+ e.latlng.lat + 'Long: ' +e.latlng.lng ;
-    console.log('Lat: '+ e.latlng.lat, 'Long: ' +e.latlng.lng)
-})
+    document.getElementsByClassName('coordinate')[0].innerHTML ='Lat: '+ e.latlng.lat +'<br /> Long: ' +e.latlng.lng ;
+    })
   
+    //This is the callout on mouse click
 map.on('click', function(e){
   var lt = String(e.latlng.lat),
   lg = String(e.latlng.lng);
   var popup = L.popup()
     .setLatLng(e.latlng)
-    .setContent(lt + " <br> Long: " + lg)
+    .setContent("Lat: " + lt + " <br /> Long: " + lg)
     .openOn(map);
 });
 
